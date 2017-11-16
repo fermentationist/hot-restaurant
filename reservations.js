@@ -8,7 +8,7 @@ $("#resoSubmit").on("click", function (event) {
         name: $('#nameInput').val().trim(),
         phone: $('#phoneInput').val().trim(),
         email: $('#emailInput').val().trim(),
-        customerID: $("idInput").val().trim()
+        customerID: $("#idInput").val().trim()
     };
     let location = window.location.origin;
     $.post(location + '/api/add', formData, function (data) {
