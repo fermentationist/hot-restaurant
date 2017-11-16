@@ -26,7 +26,8 @@ app.get("/tables", function(req, res){
 
 //======json endpoints========//
 app.get("/api/all", function(req, res){
-	res.json(tables);
+	res.json(tables, waitlist);
+	res.json(waitlist);
 })
 
 //========data structures=======//
@@ -38,7 +39,13 @@ let tables = [
 	}
 ];
 
-let waitlist = [];
+let waitlist = [
+	{name: "Jane Doe",
+	 phone: "7733485996",
+	 email: "that@this.com",
+	 customerID: "12345"
+	}
+];
 
 // app.post("/api/add",)
 
