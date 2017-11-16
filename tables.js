@@ -19,14 +19,3 @@ function getLists(endPoint = 'tables', id = 'tableList') {
         })
     })
 }
-
-
-
-
-
-
-
-
-function getWaitList() {
-
-}
