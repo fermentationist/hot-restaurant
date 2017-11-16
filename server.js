@@ -1,4 +1,4 @@
-const maxTables = 5;
+const maxTables = 1;
 //=========dependencies==========//
 const express = require ("express");
 const bodyParser = require ("body-parser");
@@ -42,12 +42,17 @@ app.get("/api/waitlist", function(req, res){
 //=======post handlers========//
 app.post("/api/add", function(req, res){
 	console.log("req.body =", req.body);
+	let responseString = "";
 	let newReservation = req.body;
 	if(tables.length < maxTables){
 		tables.push(newReservation);
+		responseString = "You successfully booked a reservation!";
 	}else{
 		waitlist.push(newReservation);
+		responseString = `Unfortunately, all available tables have been booked. You are on the waitlist and will be contacted if a table becomes available.`;
 	}
+	res.send(responseString);
+
 })
 
 
