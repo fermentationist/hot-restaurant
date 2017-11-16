@@ -12,11 +12,8 @@ $("#resoSubmit").on("click", function (event) {
     };
     let location = window.location.origin;
     $.post(location + '/api/add', formData, function (data) {
-        console.log(data)
         if (data) {
             alert(data)
         }
-        $(".card-body").append(JSON.stringify(formData))
-
     })
 })
