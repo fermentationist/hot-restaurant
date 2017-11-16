@@ -1,4 +1,4 @@
-const maxTables = 1;
+const maxTables = 3;
 //=========dependencies==========//
 const express = require ("express");
 const bodyParser = require ("body-parser");
@@ -39,17 +39,40 @@ app.get("/api/waitlist", function(req, res){
 	res.json(waitlist);
 });
 
+
+function notDupe(guest){
+	tables.forEach(function(table){
+		for(prop in table){
+			if (table[prop] === guest[prop]){ 
+				console.log("table DUPE!!!!");
+				return false;
+			}
+		}
+	});
+	waitlist.forEach(function(party){
+		for(prop in party){
+			if (party[prop] === guest[prop]){
+				console.log("waitlist DUPE!!!!");
+				return false;
+			}
+		}
+	});
+	return true;
+}
+
 //=======post handlers========//
 app.post("/api/add", function(req, res){
 	console.log("req.body =", req.body);
 	let responseString = "";
 	let newReservation = req.body;
-	if(tables.length < maxTables){
+	if(tables.length < maxTables && notDupe(newReservation)){
 		tables.push(newReservation);
 		responseString = "You successfully booked a reservation!";
-	}else{
+	}else if(notDupe(newReservation)){
 		waitlist.push(newReservation);
-		responseString = `Unfortunately, all available tables have been booked. You are on the waitlist and will be contacted if a table becomes available.`;
+		responseString = "Unfortunately, all available tables have been booked. You are on the waitlist and will be contacted if a table becomes available.";
+	}else{
+		responseString = "Already on list.";
 	}
 	res.send(responseString);
 
