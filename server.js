@@ -41,23 +41,24 @@ app.get("/api/waitlist", function(req, res){
 
 
 function notDupe(guest){
+	let result = true;
 	tables.forEach(function(table){
-		for(prop in table){
+		for(let prop in table){
 			if (table[prop] === guest[prop]){ 
 				console.log("table DUPE!!!!");
-				return false;
+				result = false;
 			}
 		}
 	});
 	waitlist.forEach(function(party){
-		for(prop in party){
+		for(let prop in party){
 			if (party[prop] === guest[prop]){
 				console.log("waitlist DUPE!!!!");
-				return false;
+				result = false;
 			}
 		}
 	});
-	return true;
+	return result;
 }
 
 //=======post handlers========//
@@ -66,6 +67,7 @@ app.post("/api/add", function(req, res){
 	let responseString = "";
 	let newReservation = req.body;
 	if(tables.length < maxTables && notDupe(newReservation)){
+		console.log('notDupe(newReservation)', notDupe(newReservation));
 		tables.push(newReservation);
 		responseString = "You successfully booked a reservation!";
 	}else if(notDupe(newReservation)){
