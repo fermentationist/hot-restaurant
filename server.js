@@ -1,4 +1,4 @@
-const maxTables = 3;
+const maxTables = 5;
 //=========dependencies==========//
 const express = require ("express");
 const bodyParser = require ("body-parser");
